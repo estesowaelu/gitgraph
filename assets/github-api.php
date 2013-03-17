@@ -91,7 +91,7 @@ function github_get_repo_languages($ownername, $reponame) {
 }
 
 function github_get_everything($username) {
-  $size = 50;
+  $size = 80;
 
   $everything = array();
   $user = json_decode(github_get_user($username), true);

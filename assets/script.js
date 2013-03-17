@@ -1,27 +1,80 @@
 $(document).ready(function() {
     // At Startup
     $('#front-matter').hide();
-
+    $('#graph-matter').hide();
+    
     // Variables
     var currentCodeFlower;
     
     // Function Definitions
     function CreateCodeFlower(json) {
 	if(currentCodeFlower) currentCodeFlower.cleanup();
-	currentCodeFlower = new CodeFlower("#flower-img", 500, 500, UpdateUserGUI).update(json);
+	currentCodeFlower = new CodeFlower("#flower-img", 300, 570, UpdateUserGUI).update(json);
     };
 
-    function CreateRepoPie(json) {
-	d3.select("#repo-pie-img").selectAll("svg").remove();
+    function CreatePie(selector, json, dim) {
+	d3.select(selector).selectAll("svg").remove();
 	var m = 10,
-	r = 200,
+	r = dim,
 	z = d3.scale.category20c();
+ 
+	var svg = d3.select(selector).selectAll("svg")
+	    .data([json])
+	    .enter().append("svg:svg")
+	    .attr("width", (r + m) * 2)
+	    .attr("height", (r + m) * 2)
+	    .append("svg:g")
+	    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
+ 
+	svg.selectAll("path")
+	    .data(d3.layout.pie().value(function(d) {return d.value;}))
+	    .enter().append("svg:path")
+	    .attr("d", d3.svg.arc()
+		  .innerRadius(r / 2)
+		  .outerRadius(r))
+	    .style("fill", function(d, i) { return z(i); });
+    }
 
-    function CreateLangPie(json) {
-	d3.select("#lang-pie-img").selectAll("svg").remove();
-	var m = 10,
-	r = 200,
-	z = d3.scale.category20c();
+    function CreatePieL(selector, json, dim, rad) {
+	d3.select(selector).selectAll("svg").remove();
+	var w = dim,
+	h = dim,
+	r = rad,
+	color = d3.scale.category20c();
+ 
+	var vis = d3.select(selector)
+	    .append("svg:svg")
+	    .data([json])
+	    .attr("width", w)
+	    .attr("height", h)
+	    .append("svg:g")
+	    .attr("transform", "translate(" + r + "," + r + ")");
+
+        var arc = d3.svg.arc()
+            .outerRadius(r);
+	
+	var pie = d3.layout.pie()
+	    .value(function(d) {return d.value; });
+
+	var arcs = vis.selectAll("g.slice")
+	    .data(pie)
+	    .enter()
+	    .append("svg:g")
+	    .attr("class", "slice");
+
+        arcs.append("svg:path")
+	    .attr("fill", function(d,i) {return color(i);})
+	    .attr("d", arc);
+	
+	arcs.append("svg:text")
+	    .attr("transform", function(d) {
+		d.innerRadius = 1 * r / 3;
+		d.outterRadius = 2 * r;
+		return "translate(" + arc.centroid(d) + ")";
+	    })
+	    .attr("text-anchor", "middle")
+	    .text(function(d,i){return json[i].label; });
+    }
 
     function CreateOrgPie(json) {
 	d3.select("#org-pie-img").selectAll("svg").remove();
@@ -70,6 +123,14 @@ $(document).ready(function() {
 	$('#front-matter').hide();
     }
 
+    function UpdateUserName(name) {
+	$('#user-name').html(name);
+    }
+
+    function ShowGraphMatter(name) {
+	$('#graph-matter').show()
+    }
+
     function UpdateUserGUI(user) {
         HideFormMatter();
 	setTimeout(function() {
@@ -77,28 +138,31 @@ $(document).ready(function() {
 		//		$.getJSON('assets/sample1.json', function(data) {
 		// All data is processed within this function.
 		if(data['login'] == null ) {
+		    UpdateUserName("");
 		    ShowFormMatter();
 		    ShowErrorMessage("Hey. That user doesn't exist. Hit escape and try again.");
 		} else {
+		    console.log(data);
+		    ShowGraphMatter();
+		    UpdateUserName(data['login']);
 		    HideFrontMatter();
 		    HideErrorMessage();
 		    var repo_pie_data = [];
 		    var lang_pie_data = [];
 		    var org_pie_data = [];
 		    for (var i=0; i<data.repos.length; i++) {
-				repo_pie_data.push({'label':data.repos[i].login, 'value':data.repos[i].size});
+			repo_pie_data.push({'label':data.repos[i].name, 'value':data.repos[i].size});
 		    }
-	        for (key in data.languages) {
+	            for (key in data.languages) {
 		    	lang_pie_data.push({'label':key, 'value':data.languages[key]});
-	        }
-		    for (var i=0; i<data.repos.length; i++) {
-		  		org_pie_data.push({'label':data.orgrepos[i].owner, 'value':data.repos[i].size});
+	            }
+		    for (var i=0; i<data.orgrepos.length; i++) {
+		  	org_pie_data.push({'label':data.orgrepos[i].name, 'value':data.orgrepos[i].size});
 		    }
-		    CreateRepoPie(repo_pie_data);
-		    CreateLangPie(lang_pie_data);
-		    CreateOrgPie(org_pie_data);
+		    CreatePieL('#repo-pie-img', repo_pie_data, 400, 180);
+		    CreatePieL('#lang-pie-img', lang_pie_data, 150, 70);
+		    CreatePieL('#org-pie-img', org_pie_data, 150, 70);
 		    CreateCodeFlower(data['relations']);
-
 		}
 	    });
 	}, 100);

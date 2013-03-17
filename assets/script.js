@@ -123,10 +123,6 @@ $(document).ready(function() {
 	$('#front-matter').hide();
     }
 
-    function UpdateUserName(name) {
-	$('#user-name').html(name);
-    }
-
     function ShowGraphMatter(name) {
 	$('#graph-matter').show();
     }
@@ -137,6 +133,30 @@ $(document).ready(function() {
 
     function ShowTopTag() {
 	$("#top-matter p").slideDown();
+    }
+
+    function UpdateUserName(name) {
+	$('#user-name').html(name);
+    }
+
+    function UpdateRepoCount(count) {
+	$('#user-repos').html(count);
+    }
+
+    function UpdateORepoCount(count) {
+	$('#user-orepos').html(count);
+    }
+
+    function UpdateForks(count) {
+	$('#user-forked').html(count);
+    }
+
+    function UpdateStars(count) {
+	$('#user-starred').html(count);
+    }
+
+    function UpdateAge(secs) {
+	$('#user-age').html(secs/60/60/24/365);
     }
 
     function UpdateUserGUI(user) {
@@ -154,6 +174,11 @@ $(document).ready(function() {
 		    console.log(data);
 		    ShowGraphMatter();
 		    UpdateUserName(data['login']);
+		    UpdateRepoCount(data['repos'].length);
+		    UpdateORepoCount(data['orgrepos'].length);
+		    UpdateForks(data['forks']);
+		    UpdateStars(data['watchers']);
+		    UpdateAge((Date.now()-Data.parse(data['created_at']).getTime())/1000);
 		    HideFrontMatter();
 		    HideErrorMessage();
 		    var repo_pie_data = [];

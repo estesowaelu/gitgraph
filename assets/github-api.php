@@ -45,6 +45,15 @@ function github_get_repo_contributors($ownername, $reponame) {
   return $json;
 }
 	
+// GET /repos/:owner/:repo/languages
+function github_get_repo_languages($ownername, $reponame) {
+  $url = 'https://api.github.com/repos/'.$ownername.'/'.$reponame.'/languages'
+    .'?client_id='.getenv('GITHUB_CLIENT_ID')
+    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+  $json = file_get_contents($url);
+  return $json;
+}
+
 function github_get_everything($username) {
   $everything = array();
   $user = json_decode(github_get_user($username), true);
@@ -58,8 +67,19 @@ function github_get_everything($username) {
   $everything['followers'] = $user['followers'];
   $everything['created_at'] = $user['created_at'];
 
+  $everything['forks'] = 0;
+  $everything['watchers'] = 0;
+  $everything['languages'] = array();
+
   $everything['repos'] = array();
   foreach($user_repos as $urepo) {
+    $langs = json_decode(github_get_repo_languages($user['login'], $urepo['name']), true);
+    foreach($langs as $l => $v) {
+      $everything['languages'][$l] += $v;
+    }
+
+    $everything['forks'] += $urepo['forks'];
+    $everything['watchers'] += $urepo['watchers'];
     $everything['repos'][] = array(
       'owner' => $urepo['owner']['login'],
       'name' => $urepo['name'],
@@ -98,7 +118,13 @@ function github_get_everything($username) {
 	  break;
         }
       }
-      if($didcon) { 
+      if($didcon) {
+        $langs = json_decode(github_get_repo_languages($org['login'], $orepo['name']), true);
+        foreach($langs as $l => $v) {
+          $everything['languages'][$l] += $v;
+        }
+        $everything['forks'] += $orepo['forks'];
+        $everything['watchers'] += $orepo['watchers'];
         $everything['orgrepos'][] = array(
           'owner' => $orepo['owner']['login'],
   	  'name' => $orepo['name'],
@@ -115,6 +141,9 @@ function github_get_everything($username) {
         ); 
       } 
     }
+
+    // After everything globals
+    $everything['contributed_repos'] = sizeof($everything['orgrepos']);
   }
 
   echo json_encode($everything);  

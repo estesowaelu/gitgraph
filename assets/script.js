@@ -16,6 +16,19 @@ $(document).ready(function() {
 	var m = 10,
 	r = 200,
 	z = d3.scale.category20c();
+
+    function CreateLangPie(json) {
+	d3.select("#lang-pie-img").selectAll("svg").remove();
+	var m = 10,
+	r = 200,
+	z = d3.scale.category20c();
+
+    function CreateOrgPie(json) {
+	d3.select("#org-pie-img").selectAll("svg").remove();
+	var m = 10,
+	r = 200,
+	z = d3.scale.category20c();
+
  
 	var svg = d3.select("#repo-pie-img").selectAll("svg")
 	    .data([json])
@@ -69,12 +82,23 @@ $(document).ready(function() {
 		} else {
 		    HideFrontMatter();
 		    HideErrorMessage();
-		    CreateCodeFlower(data['relations']);
 		    var repo_pie_data = [];
+		    var lang_pie_data = [];
+		    var org_pie_data = [];
 		    for (var i=0; i<data.repos.length; i++) {
-			repo_pie_data.push({'label':data.repos[i].login, 'value':data.repos[i].size});
+				repo_pie_data.push({'label':data.repos[i].login, 'value':data.repos[i].size});
+		    }
+	        for (key in data.languages) {
+		    	lang_pie_data.push({'label':key, 'value':data.languages[key]});
+	        }
+		    for (var i=0; i<data.repos.length; i++) {
+		  		org_pie_data.push({'label':data.orgrepos[i].owner, 'value':data.repos[i].size});
 		    }
 		    CreateRepoPie(repo_pie_data);
+		    CreateLangPie(lang_pie_data);
+		    CreateOrgPie(org_pie_data);
+		    CreateCodeFlower(data['relations']);
+
 		}
 	    });
 	}, 100);

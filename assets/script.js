@@ -9,7 +9,7 @@ $(document).ready(function() {
     // Function Definitions
     function CreateCodeFlower(json) {
 	if(currentCodeFlower) currentCodeFlower.cleanup();
-	currentCodeFlower = new CodeFlower("#flower-img", 450, 570, UpdateUserGUI).update(json);
+	currentCodeFlower = new CodeFlower("#flower-img", 450, 500, UpdateUserGUI).update(json);
     };
 
     function CreatePie(selector, json, dim) {
@@ -35,13 +35,16 @@ $(document).ready(function() {
 	    .style("fill", function(d, i) { return z(i); });
     }
 
-    function CreatePieL(selector, json, dim, rad) {
+    function CreatePieL(selector, json, dim, rad, fill) {
 	d3.select(selector).selectAll("svg").remove();
 	var w = dim,
 	h = dim,
 	r = rad,
+	ir = 0;
 	color = d3.scale.category20c();
- 
+	if(!fill) {ir = r / 2;}
+	
+
 	var vis = d3.select(selector)
 	    .append("svg:svg")
 	    .data([json])
@@ -51,6 +54,7 @@ $(document).ready(function() {
 	    .attr("transform", "translate(" + r + "," + r + ")");
 
         var arc = d3.svg.arc()
+	    .innerRadius(ir)
             .outerRadius(r);
 	
 	var pie = d3.layout.pie()
@@ -140,30 +144,29 @@ $(document).ready(function() {
     }
 
     function UpdateRepoCount(count) {
-	$('#user-repos').html(count);
+	$('#user-repos').html('Personal Reps: '+count);
     }
 
     function UpdateORepoCount(count) {
-	$('#user-orepos').html(count);
+	$('#user-orepos').html('Org. Reps: '+count);
     }
 
     function UpdateForks(count) {
-	$('#user-forked').html(count);
+	$('#user-forked').html('Forked: '+count);
     }
 
     function UpdateStars(count) {
-	$('#user-starred').html(count);
+	$('#user-starred').html("Starred: "+count);
     }
 
     function UpdateAge(secs) {
-	$('#user-age').html(secs/60/60/24/365);
+	$('#user-age').html("Years: "+Math.ceil(secs/60/60/24/365));
     }
 
     function UpdateUserGUI(user) {
         HideFormMatter();
 	setTimeout(function() {
  	    $.getJSON('assets/main.php?username='+user, function(data) {
-		//		$.getJSON('assets/sample1.json', function(data) {
 		// All data is processed within this function.
 		if(data['login'] == null ) {
 		    UpdateUserName("");
@@ -178,7 +181,7 @@ $(document).ready(function() {
 		    UpdateORepoCount(data['orgrepos'].length);
 		    UpdateForks(data['forks']);
 		    UpdateStars(data['watchers']);
-		    UpdateAge((Date.now()-Data.parse(data['created_at']).getTime())/1000);
+		    UpdateAge((Date.now()-Date.parse(data['created_at']))/1000);
 		    HideFrontMatter();
 		    HideErrorMessage();
 		    var repo_pie_data = [];
@@ -193,9 +196,9 @@ $(document).ready(function() {
 		    for (var i=0; i<data.orgrepos.length; i++) {
 		  	org_pie_data.push({'label':data.orgrepos[i].name, 'value':data.orgrepos[i].size});
 		    }
-		    CreatePieL('#repo-pie-img', repo_pie_data, 400, 180);
-		    CreatePieL('#lang-pie-img', lang_pie_data, 150, 70);
-		    CreatePieL('#org-pie-img', org_pie_data, 150, 70);
+		    CreatePieL('#repo-pie-img', repo_pie_data, 400, 180, true);
+		    CreatePieL('#lang-pie-img', lang_pie_data, 150, 70, false);
+		    CreatePieL('#org-pie-img', org_pie_data, 150, 70, false);
 		    CreateCodeFlower(data['relations']);
 		}
 	    });

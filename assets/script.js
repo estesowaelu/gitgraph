@@ -65,7 +65,7 @@ $(document).ready(function() {
 		// All data is processed within this function.
 		if(data['login'] == null ) {
 		    ShowFormMatter();
-		    ShowErrorMessage("Oops! Something went wrong on our end!\nHit escape and try something else.");
+		    ShowErrorMessage("Hey. That user doesn't exist. Hit escape and try again.");
 		} else {
 		    HideFrontMatter();
 		    HideErrorMessage();

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?3.0.8"></script>
+    </head>
+    <body>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    var diameter = 960,
+        format = d3.format(",d"),
+        color = d3.scale.category20c();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .attr("class", "bubble");
+
+    var dataset = [];
+
+    $.getJSON("sample1.json", function(data) {
+
+      for (var i=0; i<data.repos.length; i++) {
+        dataset.push(data.repos[i].size);
+      }
+
+      console.log(dataset);
+
+    }); 
+
+    </script>
+    </body>
+</html>
+
+

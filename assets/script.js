@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // At Startup
-    $('#wait-matter').hide();
+    $('#front-matter').hide();
 
     // Variables
     var currentCodeFlower;
@@ -10,6 +10,29 @@ $(document).ready(function() {
 	if(currentCodeFlower) currentCodeFlower.cleanup();
 	currentCodeFlower = new CodeFlower("#flower-img", 300, 600, UpdateUserGUI).update(json);
     };
+
+    function CreateRepoPie(json) {
+	d3.select("#repo-pie-img").selectAll("svg").remove();
+	var m = 10,
+	r = 200,
+	z = d3.scale.category20c();
+ 
+	var svg = d3.select("#repo-pie-img").selectAll("svg")
+	    .data([json])
+	    .enter().append("svg:svg")
+	    .attr("width", (r + m) * 2)
+	    .attr("height", (r + m) * 2)
+	    .append("svg:g")
+	    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
+ 
+	svg.selectAll("path")
+	    .data(d3.layout.pie().value(function(d) {return d.value;}))
+	    .enter().append("svg:path")
+	    .attr("d", d3.svg.arc()
+		  .innerRadius(r / 2)
+		  .outerRadius(r))
+	    .style("fill", function(d, i) { return z(i); });
+    }
 
     function ShowErrorMessage(msg) {
 	$('#error-list').html('<li class="text-error">'+msg+'</li>');
@@ -21,17 +44,17 @@ $(document).ready(function() {
 
     function HideFormMatter() {
 	$('#form-matter').fadeOut(function() {
-	    $('#wait-matter').fadeIn();
+	    $('#front-matter').fadeIn();
 	});
     };
 
     function ShowFormMatter() {
 	$('#form-matter').show();
-	$('#wait-matter').hide();
+	$('#front-matter').hide();
     };
 
-    function HideWaitMatter() {
-	$('#wait-matter').hide();
+    function HideFrontMatter() {
+	$('#front-matter').hide();
     }
 
     function UpdateUserGUI(user) {
@@ -44,10 +67,14 @@ $(document).ready(function() {
 		    ShowFormMatter();
 		    ShowErrorMessage("Oops! Something went really wrong on our end!");
 		} else {
-		    HideWaitMatter();
+		    HideFrontMatter();
 		    HideErrorMessage();
-		    console.log(JSON.stringify(data['relations']));
 		    CreateCodeFlower(data['relations']);
+		    var repo_pie_data = [];
+		    for (var i=0; i<data.repos.length; i++) {
+			repo_pie_data.push({'label':data.repos[i].login, 'value':data.repos[i].size});
+		    }
+		    CreateRepoPie(repo_pie_data);
 		}
 	    });
 	}, 100);

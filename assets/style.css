@@ -3,6 +3,14 @@ html {}
 #error-list { list-style-type: none; }
 #error-list li { text-align: center; }
 
-#load-img { display: block; width: 200px; margin: 0 auto; }
+#load-img { display: block; width: 200px; margin: 0 auto; border-radius: 20px; }
 
 #flower-img * { stroke: none !important; }
+
+#top-matter { text-align: center; }
+
+#below-matter { position: relative; }
+
+#front-matter { position: absolute; top: 0; background: rgba(200,200,200,0.4); width: 100%; padding: 100px 0; }
+
+#back-matter { text-align: center; }

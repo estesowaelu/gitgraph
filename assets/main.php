@@ -12,16 +12,18 @@
 //   stream[]
 //   info[]
 
-// Include Github Functions
-require 'request.php';
+// Require Github Functions
+require 'github-api.php';
 
-if(!isset($_POST['username'])) {
+// Check that some request param is set.
+if(!isset($_GET['username'])) {
+
   $error = array(
-    'msg' => 'missing POST[\'username\']'
+    'msg' => 'missing GET[\'username\']'
   );
   die(json_encode(array('error' => $error)));
 }
 
-echo $_POST['username'];
+echo github_get_everything($_GET['username']);
 
 ?>

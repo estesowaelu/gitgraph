@@ -65,7 +65,7 @@ $(document).ready(function() {
 		// All data is processed within this function.
 		if(data['login'] == null ) {
 		    ShowFormMatter();
-		    ShowErrorMessage("Oops! Something went really wrong on our end!");
+		    ShowErrorMessage("Oops! Something went really wrong on our end!\nReload the page and try something else.");
 		} else {
 		    HideFrontMatter();
 		    HideErrorMessage();
@@ -82,10 +82,13 @@ $(document).ready(function() {
     }
 
     // DOM Rigging
-    $('#user-field').keypress(function(e) {
-	if(e.which == 13) { //enter key
-	    var username = $(this).val();
-	    UpdateUserGUI(username);
-	}
+    $('#user-field').keydown(function(e) {
+		if(e.which == 13) { //enter key
+		    var username = $(this).val();
+		    UpdateUserGUI(username);
+		}
+		if(e.which == 27) { //escape key
+			location.reload();
+		}
     });
 });

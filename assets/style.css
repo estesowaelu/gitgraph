@@ -1,0 +1,6 @@
+html {}
+
+#error-list { list-style-type: none; }
+#error-list li { text-align: center; }
+
+#load-img { display: block; width: 200px; margin: 0 auto; }

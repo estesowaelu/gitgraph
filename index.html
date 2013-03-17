@@ -12,7 +12,7 @@
       }
     </style>
     <!-- Styles -->
-    <link href="assets/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="assets/style.css" rel="stylesheet">
   </head>
 
@@ -30,18 +30,19 @@
           <br />  
           <ul id="error-list">
           </ul>
-          <form action="" class="form-search">
-            <input type="text" class="input-xlarge search-query" placeholder="Enter a GitHub username">
-            <button type="submit" class="btn">Search</button>
-          </form>
+          <input id="user-field" type="text" class="input-xlarge search-query" placeholder="Enter a GitHub username">
         </center>
+      </div>
+      <div id="wait-matter">
+	<img id="load-img" src="assets/loading-github.gif" />
       </div>
       <div id="graph-matter">
         <!-- Graph output should be generated and put here... -->
       </div>
     </div>
-
-    <script src="assets/bootstrap.js"></script>
+    <!-- Le Javascript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
     <script src="assets/script.js"></script>
     <script type="text/javascript">
       var _gauges = _gauges || [];

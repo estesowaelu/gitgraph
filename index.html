@@ -13,27 +13,36 @@
     </style>
     <!-- Styles -->
     <link href="assets/bootstrap.css" rel="stylesheet">
+    <link href="assets/style.css" rel="stylesheet">
   </head>
 
   <body>
     <div class="container" id="content">
-      <center>
-        <h1>GitGraph</h1>
-        <p><em>explore GitHub users and their work in a dynamic graph</em></p>
+      <div id="top-matter">
+        <center>
+         <h1>GitGraph</h1>
+         <p><em>explore GitHub users and their work in a dynamic graph</em></p>
         <hr />
-        <br />
-
-        <h3>Coming soon.</h3></br>
-
-        <form action="" class="form-search">
-          <input type="text" class="input-xlarge search-query" placeholder="Enter a GitHub username">
-          <button type="submit" class="btn">Search</button>
-        </form>
-      </center>
-
+        </center> 
+      </div>
+      <div id="form-matter">
+        <center>
+          <br />  
+          <ul id="error-list">
+          </ul>
+          <form action="" class="form-search">
+            <input type="text" class="input-xlarge search-query" placeholder="Enter a GitHub username">
+            <button type="submit" class="btn">Search</button>
+          </form>
+        </center>
+      </div>
+      <div id="graph-matter">
+        <!-- Graph output should be generated and put here... -->
+      </div>
     </div>
 
     <script src="assets/bootstrap.js"></script>
+    <script src="assets/script.js"></script>
     <script type="text/javascript">
       var _gauges = _gauges || [];
       (function() {

@@ -31,7 +31,8 @@ $(document).ready(function() {
 	    HideFormMatter();
 	    var username = $(this).val();
 	    setTimeout(function() {
-		$.getJSON('assets/main.php?username='+username, function(data) {
+// 		$.getJSON('assets/main.php?username='+username, function(data) {
+		$.getJSON('assets/sample1.json', function(data) {
 		    // All data is processed within this function.
 		    if(data['login'] == null ) {
 			ShowFormMatter();

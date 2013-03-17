@@ -3,67 +3,69 @@
   <head>
     <!-- Metadata -->
     <meta charset="utf-8">
-    <meta name="author" content="Tim Honeywell">
+    <meta name="author" content="Tim Honeywell & Nick Vitovitch">
     <title>GitGraph</title>
-    <style>
-      body {
-      padding-top: 40px;
-      }
-    </style>
     <!-- Styles -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="codeflower/stylesheets/style.css" rel="stylesheet">
     <link href="assets/style.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 40px;
+      }
+    </style>
   </head>
 
   <body>
     <div class="container" id="content">
       <div id="top-matter" class="row">
         <div class="span12">
-	  <h1>GitGraph</h1>
+          <h1>GitGraph</h1>
           <p><em>explore GitHub users and their work in a dynamic graph</em></p>
           <hr />
-	</div>
-      </div>
-      <div id="below-matter" class="container">
-	<div id="front-matter">
-	  <img id="load-img" src="assets/loading-github.gif" />
-	</div>
-	<div id="back-matter" class="row">
-          <div id="error-matter" class="span12">
-	    <br />  
-            <ul id="error-list">
-            </ul>
-	  </div>
-	  <div id="form-matter" class="span12">
-            <input id="user-field" type="text" class="input-xlarge search-query" placeholder="Enter a GitHub username">
-          </div>
-	</div>
-	<div id="graph-matter">
-	  <!-- Graph output should be generated and put here... -->
-	  <div class="row">
-	    <div id="pie" class="span8">
-	      <div id="repo-pie-img"></div>
-	    </div>
-	    <div id="flower" class="span4">
-	      <div id="flower-img"></div>
-	      <div id="flower-form"></div>
-	    </div>
-	  </div>
         </div>
       </div>
-      <!-- Le Javascript -->
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script src="bootstrap/js/bootstrap.js"></script>
-      <script type="text/javascript" src="codeflower/javascripts/d3/d3.js"></script>
-      <script type="text/javascript" src="codeflower/javascripts/d3/d3.geom.js"></script>
-      <script type="text/javascript" src="codeflower/javascripts/d3/d3.layout.js"></script>
-      <script type="text/javascript" src="codeflower/javascripts/CodeFlower.js"></script>
-      <script type="text/javascript" src="codeflower/javascripts/dataConverter.js"></script>
-      <script src="assets/script.js"></script>
-      <script type="text/javascript">
-	var _gauges = _gauges || [];
-	(function() {
+      <div id="below-matter" class="container">
+        <div id="front-matter">
+          <img id="load-img" src="assets/loading-github.gif" />
+        </div>
+        <div id="back-matter" class="row">
+          <div id="error-matter" class="span12">
+            <br />  
+            <ul id="error-list">
+            </ul>
+          </div>
+          <div id="form-matter" class="span12">
+            <input id="user-field" type="text" class="input-xlarge search-query" placeholder="Enter a GitHub username">
+          </div>
+        </div>
+        <div id="graph-matter">
+        <!-- Graph output should be generated and put here... -->
+        <div class="row">
+          <div id="pie" class="span8">
+            <div id="repo-pie-img"></div>
+          </div>
+          <div id="flower" class="span4">
+            <div id="flower-img"></div>
+            <div id="flower-form"></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Le Javascript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/d3/d3.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/d3/d3.geom.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/d3/d3.layout.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/CodeFlower.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/dataConverter.js"></script>
+    <script type="text/javascript" src="assets/script.js"></script>
+    <script type="text/javascript">
+    	var _gauges = _gauges || [];
+      (function() {
         var t   = document.createElement('script');
         t.type  = 'text/javascript';
         t.async = true;
@@ -72,7 +74,7 @@
         t.src = '//secure.gaug.es/track.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(t, s);
-	})();
-      </script>
+      })();
+    </script>
   </body>
 </html>

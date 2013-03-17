@@ -8,7 +8,7 @@ $(document).ready(function() {
     // Function Definitions
     function CreateCodeFlower(json) {
 	if(currentCodeFlower) currentCodeFlower.cleanup();
-	currentCodeFlower = new CodeFlower("#flower-img", 300, 600, UpdateUserGUI).update(json);
+	currentCodeFlower = new CodeFlower("#flower-img", 500, 500, UpdateUserGUI).update(json);
     };
 
     function CreateRepoPie(json) {
@@ -65,7 +65,7 @@ $(document).ready(function() {
 		// All data is processed within this function.
 		if(data['login'] == null ) {
 		    ShowFormMatter();
-		    ShowErrorMessage("Oops! Something went really wrong on our end!\nReload the page and try something else.");
+		    ShowErrorMessage("Oops! Something went wrong on our end!\nHit escape and try something else.");
 		} else {
 		    HideFrontMatter();
 		    HideErrorMessage();
@@ -87,7 +87,7 @@ $(document).ready(function() {
 		    var username = $(this).val();
 		    UpdateUserGUI(username);
 		}
-		if(e.which == 27) { //escape key
+		else if(e.which == 27) { //escape key
 			location.reload();
 		}
     });

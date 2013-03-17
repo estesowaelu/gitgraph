@@ -1,0 +1,52 @@
+Graph github user data to display activity level, coding proficiencies, connections to other users and organizations.
+Heatmaps by language
+Similar to... (for repositories and users)
+Organizations as umbrella users
+User compatibility with organization
+-------------------------------------------
+
+___ = {User, Organization, Repository, Language}
+
+- Search individual ___
+- Compare multiple ___
+- Browse ___
+- Browse GitHub (everything) (?!)
+
+User:
+	activity level
+	coding proficiencies
+	connections to users
+	connections to organizations
+	similar to
+	popularity
+	work over time by repository
+	work over time by language
+
+Organizations:
+	activity level
+	coding proficiencies
+	connections to users
+	users' contributions to proficiencies
+	similar to
+	work over time by repository
+	work over time by language
+
+Repository:
+	filetype breakdown
+	morphology over time
+	contributors' level of support
+	popularity
+
+Language:
+	top users
+	top repositories
+
+
+- make query
+- parse/rebuild query?
+- render query
+
+
+
+
+0e3128fd68eb4234e9c1e34507593bfff2e7729d

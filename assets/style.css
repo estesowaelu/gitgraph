@@ -26,3 +26,16 @@ html * { font-family: 'Sintony', sans-serif; }
     font-family: Arial;
     z-index: 9000;
 }  
+
+
+#silly { position: absolute;
+	 width: 250px;
+	 height: 250px;
+	 top: -50px;
+	 left: -50px;
+	 transform:rotate(135deg);
+	 -ms-transform:rotate(135deg); /* IE 9 */
+	 -moz-transform:rotate(135deg); /* Firefox */
+	 -webkit-transform:rotate(135deg); /* Safari and Chrome */
+	 -o-transform:rotate(135deg); /* Opera */
+}

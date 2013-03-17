@@ -1,73 +1,91 @@
 <?php
 
+require 'auth.php';
+
 // GET /users/:user
 function github_get_user($username) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/users/'.$username
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }
 
 // GET /users/:user/orgs
 function github_get_user_orgs($username) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/users/'.$username.'/orgs'
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }
 
 // GET /users/:user/subscriptions
 function github_get_user_subscriptions($username) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/users/'.$username.'/subscriptions'
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }
 
 //GET /users/:user/repos
 function github_get_user_repos($username) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/users/'.$username.'/repos'
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }
 
 //GET /orgs/:org/repos
 function github_get_org_repos($orgname) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/orgs/'.$orgname.'/repos'
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }
 
 //GET /repos/:owner/:repo/contributors  
 function github_get_repo_contributors($ownername, $reponame) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/repos/'.$ownername.'/'.$reponame.'/contributors'
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }
 
 //GET /repos/:owner/:repo/stargazers  
 function github_get_repo_stargazers($ownername, $reponame) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/repos/'.$ownername.'/'.$reponame.'/stargazers'
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }
 	
 // GET /repos/:owner/:repo/languages
 function github_get_repo_languages($ownername, $reponame) {
+  $client_id = github_get_client_id();
+  $client_secret = github_get_client_secret();
   $url = 'https://api.github.com/repos/'.$ownername.'/'.$reponame.'/languages'
-    .'?client_id='.getenv('GITHUB_CLIENT_ID')
-    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+    .'?client_id='.$client_id
+    .'&client_secret='.$client_secret;
   $json = file_get_contents($url);
   return $json;
 }

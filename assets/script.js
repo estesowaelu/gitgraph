@@ -41,7 +41,9 @@ $(document).ready(function() {
 	h = dim,
 	r = rad,
 	ir = 0;
-	color = d3.scale.category20c();
+//	color = d3.scale.category20c();
+	color = d3.scale.ordinal()
+		.range(colorbrewer.Greens[5]);
 	if(!fill) {ir = r / 2;}
 	
 
@@ -178,7 +180,7 @@ $(document).ready(function() {
 		    ShowErrorMessage("Hey. That user doesn't exist. Hit escape and try again.");
 		} else {
 		    HideTopTag();
-		    console.log(data);
+//		    console.log(data);
 		    ShowGraphMatter();
 		    UpdateUserName(data['login']);
 		    UpdateRepoCount(data['repos'].length);

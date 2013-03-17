@@ -12,6 +12,9 @@
 //   stream[]
 //   info[]
 
+// Include Github Functions
+require 'request.php';
+
 if(!isset($_POST['username'])) {
   $error = array(
     'msg' => 'missing POST[\'username\']'

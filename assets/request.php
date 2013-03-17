@@ -31,5 +31,5 @@ echo($decoded['login'].'<br><br>');
     foreach ($decoded as $key => $value){
         echo "$key: $value\n<br/>";
     };
-	
+
 ?>

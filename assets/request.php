@@ -18,18 +18,4 @@ function get_content_from_github($url) {
 	return $content;
 }
 
-// API call through curl
-$json = get_content_from_github('https://api.github.com/users/estesowael');
-
-// JSON now decode into array
-$decoded = json_decode($json,true);
-
-// spitting out 1 value of the array to the screen
-echo($decoded['login'].'<br><br>');
-
-// here's so you an see what is in the array
-    foreach ($decoded as $key => $value){
-        echo "$key: $value\n<br/>";
-    };
-	
 ?>

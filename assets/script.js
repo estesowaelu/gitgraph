@@ -12,6 +12,29 @@ $(document).ready(function() {
 	currentCodeFlower = new CodeFlower("#flower-img", 300, 400, UpdateUserGUI).update(json);
     };
 
+    function CreatePie(selector, json, dim) {
+	d3.select(selector).selectAll("svg").remove();
+	var m = 10,
+	r = dim,
+	z = d3.scale.category20c();
+ 
+	var svg = d3.select(selector).selectAll("svg")
+	    .data([json])
+	    .enter().append("svg:svg")
+	    .attr("width", (r + m) * 2)
+	    .attr("height", (r + m) * 2)
+	    .append("svg:g")
+	    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
+ 
+	svg.selectAll("path")
+	    .data(d3.layout.pie().value(function(d) {return d.value;}))
+	    .enter().append("svg:path")
+	    .attr("d", d3.svg.arc()
+		  .innerRadius(r / 2)
+		  .outerRadius(r))
+	    .style("fill", function(d, i) { return z(i); });
+    }
+
     function CreateRepoPie(json) {
 	d3.select("#repo-pie-img").selectAll("svg").remove();
 	var m = 10,
@@ -86,7 +109,9 @@ $(document).ready(function() {
 		    for (var i=0; i<data.repos.length; i++) {
 			repo_pie_data.push({'label':data.repos[i].login, 'value':data.repos[i].size});
 		    }
-		    CreateRepoPie(repo_pie_data);
+		    CreatePie("#repo-pie-img", repo_pie_data, 200);
+		    CreatePie("#lang-pie-img", repo_pie_data, 75);
+		    CreatePie("#org-pie-img", repo_pie_data, 75);
 		}
 	    });
 	}, 100);

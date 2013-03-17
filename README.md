@@ -1,4 +1,4 @@
-# [GitGraph](apps.tfhoneywell.com/gitgraph)
+# [GitGraph](http://apps.tfhoneywell.com/gitgraph)
 
 _Explore GitHub users and their work in a dynamic graph_
 

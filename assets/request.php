@@ -19,7 +19,7 @@ function get_content_from_github($url) {
 }
 
 // API call through curl
-$json = get_content_from_github('https://api.github.com/users/estesowael');
+$json = get_content_from_github('https://api.github.com/users/estesowaelu');
 
 // JSON now decode into array
 $decoded = json_decode($json,true);

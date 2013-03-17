@@ -1,4 +1,4 @@
-html {}
+html * { font-family: 'Sintony', sans-serif; }
 
 #error-list { list-style-type: none; }
 #error-list li { text-align: center; }
@@ -11,6 +11,18 @@ html {}
 
 #below-matter { position: relative; }
 
-#front-matter { position: absolute; top: 0; background: rgba(200,200,200,0.4); width: 100%; padding: 100px 0; }
+#front-matter { 
+    position: absolute;
+    top: 0; 
+    background: rgba(200,200,200,0.4);
+    width: 100%;
+    padding: 100px 0 500px 0; 
+}
 
 #back-matter { text-align: center; }
+
+.slice text {
+    font-size: 12pt;
+    font-family: Arial;
+    z-index: 9000;
+}  

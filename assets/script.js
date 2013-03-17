@@ -1,14 +1,15 @@
 $(document).ready(function() {
     // At Startup
     $('#front-matter').hide();
-
+    $('#graph-matter').hide();
+    
     // Variables
     var currentCodeFlower;
     
     // Function Definitions
     function CreateCodeFlower(json) {
 	if(currentCodeFlower) currentCodeFlower.cleanup();
-	currentCodeFlower = new CodeFlower("#flower-img", 500, 500, UpdateUserGUI).update(json);
+	currentCodeFlower = new CodeFlower("#flower-img", 300, 400, UpdateUserGUI).update(json);
     };
 
     function CreateRepoPie(json) {
@@ -57,6 +58,14 @@ $(document).ready(function() {
 	$('#front-matter').hide();
     }
 
+    function UpdateUserName(name) {
+	$('#user-name').html(name);
+    }
+
+    function ShowGraphMatter(name) {
+	$('#graph-matter').show()
+    }
+
     function UpdateUserGUI(user) {
         HideFormMatter();
 	setTimeout(function() {
@@ -64,9 +73,12 @@ $(document).ready(function() {
 		//		$.getJSON('assets/sample1.json', function(data) {
 		// All data is processed within this function.
 		if(data['login'] == null ) {
+		    UpdateUserName("");
 		    ShowFormMatter();
 		    ShowErrorMessage("Oops! Something went wrong on our end!\nHit escape and try something else.");
 		} else {
+		    ShowGraphMatter();
+		    UpdateUserName(data['login']);
 		    HideFrontMatter();
 		    HideErrorMessage();
 		    CreateCodeFlower(data['relations']);

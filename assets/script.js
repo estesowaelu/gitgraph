@@ -159,6 +159,10 @@ $(document).ready(function() {
 	$('#user-starred').html("Starred: "+count);
     }
 
+    function UpdateFollows(count) {
+    $('#user-followed').html("Followers: "+count);
+    }
+
     function UpdateAge(secs) {
 	$('#user-age').html("Years: "+Math.ceil(secs/60/60/24/365));
     }
@@ -182,6 +186,7 @@ $(document).ready(function() {
 		    UpdateForks(data['forks']);
 		    UpdateStars(data['watchers']);
 		    UpdateAge((Date.now()-Date.parse(data['created_at']))/1000);
+		    UpdateFollows(data['followers']);
 		    HideFrontMatter();
 		    HideErrorMessage();
 		    var repo_pie_data = [];

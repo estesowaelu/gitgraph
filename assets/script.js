@@ -155,6 +155,10 @@ $(document).ready(function() {
 	$('#user-starred').html(count);
     }
 
+    function UpdateFollows(count) {
+    $('#user-followed').html(count);
+    }
+
     function UpdateAge(secs) {
 	$('#user-age').html(secs/60/60/24/365);
     }
@@ -178,6 +182,7 @@ $(document).ready(function() {
 		    UpdateORepoCount(data['orgrepos'].length);
 		    UpdateForks(data['forks']);
 		    UpdateStars(data['watchers']);
+		    UpdateFollows(data['followers']);
 		    UpdateAge((Date.now()-Data.parse(data['created_at']).getTime())/1000);
 		    HideFrontMatter();
 		    HideErrorMessage();

@@ -26,7 +26,7 @@ $(document).ready(function() {
 	    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
  
 	svg.selectAll("path")
-	    .data(d3.layout.pie())
+	    .data(d3.layout.pie().value(function(d) {return d.value;}))
 	    .enter().append("svg:path")
 	    .attr("d", d3.svg.arc()
 		  .innerRadius(r / 2)
@@ -72,7 +72,7 @@ $(document).ready(function() {
 		    CreateCodeFlower(data['relations']);
 		    var repo_pie_data = [];
 		    for (var i=0; i<data.repos.length; i++) {
-		      repo_pie_data.push(data.repos[i].size);
+			repo_pie_data.push({'label':data.repos[i].login, 'value':data.repos[i].size});
 		    }
 		    CreateRepoPie(repo_pie_data);
 		}

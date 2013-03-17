@@ -4,3 +4,5 @@ html {}
 #error-list li { text-align: center; }
 
 #load-img { display: block; width: 200px; margin: 0 auto; }
+
+#flower-img * { stroke: none !important; }

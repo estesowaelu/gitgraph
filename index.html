@@ -13,6 +13,7 @@
     </style>
     <!-- Styles -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="codeflower/stylesheets/style.css" rel="stylesheet">
     <link href="assets/style.css" rel="stylesheet">
   </head>
 
@@ -37,12 +38,23 @@
 	<img id="load-img" src="assets/loading-github.gif" />
       </div>
       <div id="graph-matter">
-        <!-- Graph output should be generated and put here... -->
-      </div>
+	<!-- Graph output should be generated and put here... -->
+	<div class="row">
+	  <div id="pie" class="span8"></div>
+	  <div id="flower" class="span4">
+	    <div id="flower-img"></div>
+	    <div id="flower-form"></div>
+	  </div>
+        </div>
     </div>
     <!-- Le Javascript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/d3/d3.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/d3/d3.geom.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/d3/d3.layout.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/CodeFlower.js"></script>
+    <script type="text/javascript" src="codeflower/javascripts/dataConverter.js"></script>
     <script src="assets/script.js"></script>
     <script type="text/javascript">
       var _gauges = _gauges || [];

@@ -18,6 +18,15 @@ function github_get_user_orgs($username) {
   return $json;
 }
 
+// GET /users/:user/subscriptions
+function github_get_user_subscriptions($username) {
+  $url = 'https://api.github.com/users/'.$username.'/subscriptions'
+    .'?client_id='.getenv('GITHUB_CLIENT_ID')
+    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+  $json = file_get_contents($url);
+  return $json;
+}
+
 //GET /users/:user/repos
 function github_get_user_repos($username) {
   $url = 'https://api.github.com/users/'.$username.'/repos'
@@ -44,6 +53,15 @@ function github_get_repo_contributors($ownername, $reponame) {
   $json = file_get_contents($url);
   return $json;
 }
+
+//GET /repos/:owner/:repo/stargazers  
+function github_get_repo_stargazers($ownername, $reponame) {
+  $url = 'https://api.github.com/repos/'.$ownername.'/'.$reponame.'/stargazers'
+    .'?client_id='.getenv('GITHUB_CLIENT_ID')
+    .'&client_secret='.getenv('GITHUB_CLIENT_SECRET');
+  $json = file_get_contents($url);
+  return $json;
+}
 	
 // GET /repos/:owner/:repo/languages
 function github_get_repo_languages($ownername, $reponame) {
@@ -55,6 +73,8 @@ function github_get_repo_languages($ownername, $reponame) {
 }
 
 function github_get_everything($username) {
+  $size = 50;
+
   $everything = array();
   $user = json_decode(github_get_user($username), true);
   $user_orgs = json_decode(github_get_user_orgs($username), true);
@@ -71,13 +91,29 @@ function github_get_everything($username) {
   $everything['watchers'] = 0;
   $everything['languages'] = array();
 
+  $est = array('name' => 'stargazers', 'children' => array());
+  $egr = array('name' => 'groupies', 'children' => array());
+  $esu = array('name' => 'subscriptions', 'children' => array());
+  $everything['relations'] = array(
+    'name' => 'relations',
+    'children' => array($est, $egr, $esu)
+  );
+
+  $subscriptions = json_decode(github_get_user_subscriptions($user['login']), true);
+  foreach($subscriptions as $s) {
+    $everything['relations']['children'][2]['children'][] = array('name' => $s['owner']['login'], 'size' => $size);
+  }
+
   $everything['repos'] = array();
   foreach($user_repos as $urepo) {
     $langs = json_decode(github_get_repo_languages($user['login'], $urepo['name']), true);
     foreach($langs as $l => $v) {
       $everything['languages'][$l] += $v;
     }
-
+    $stars = json_decode(github_get_repo_stargazers($user['login'], $urepo['name']), true);
+    foreach($stars as $s) {
+      $everything['relations']['children'][0]['children'][] = array('name' => $s['login'], 'size' => $size);
+    }     
     $everything['forks'] += $urepo['forks'];
     $everything['watchers'] += $urepo['watchers'];
     $everything['repos'][] = array(
@@ -115,14 +151,20 @@ function github_get_everything($username) {
         if($c['login'] == $user['login']) {
 	  $didcon = true;
           $numcon = $c['contributions'];
-	  break;
-        }
+        } else {
+	  $everything['relations']['children'][1]['children'][] = array('name' => $c['login'], 'size' => $size);
+	}		
       }
       if($didcon) {
         $langs = json_decode(github_get_repo_languages($org['login'], $orepo['name']), true);
         foreach($langs as $l => $v) {
           $everything['languages'][$l] += $v;
         }
+        $stars = json_decode(github_get_repo_stargazers($org['login'], $orepo['name']), true);
+        foreach($stars as $s) {
+	    $everything['relations']['children'][0]['children'][] = array('name' => $s['login'], 'size' => $size);
+        }
+
         $everything['forks'] += $orepo['forks'];
         $everything['watchers'] += $orepo['watchers'];
         $everything['orgrepos'][] = array(

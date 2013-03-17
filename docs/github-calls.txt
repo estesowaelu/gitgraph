@@ -118,7 +118,6 @@ GET /repos/:owner/:repo/languages
 Mockup user object (draft):
 {
     "login": "octocat",
-    "id": 1,
     "url": "https://api.github.com/users/octocat",
     "name": "monalisa octocat",
     "public_repos": 2,
@@ -127,13 +126,11 @@ Mockup user object (draft):
     "orgs": [
 	    {
 	      "login": "github",
-	      "id": 1,
 	      "url": "https://api.github.com/orgs/github",
 	    }
     ]
     "repos": [
     	{
-    	  "id": 1296269,
     	  "owner": {
     	    "login": "octocat",
     	    "id": 1,
@@ -155,7 +152,6 @@ Mockup user object (draft):
     ]
     "orgrepos": [
     	{
-    	  "id": 1296269,
     	  "owner": {
     	    "login": "octocat",
     	    "id": 1,

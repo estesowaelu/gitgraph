@@ -144,27 +144,27 @@ $(document).ready(function() {
     }
 
     function UpdateRepoCount(count) {
-	$('#user-repos').html('Personal Reps: '+count);
+	$('#user-repos').html(count + ' personal repos');
     }
 
     function UpdateORepoCount(count) {
-	$('#user-orepos').html('Org. Reps: '+count);
+	$('#user-orepos').html(count + ' repos contributed to');
     }
 
     function UpdateForks(count) {
-	$('#user-forked').html('Forked: '+count);
+	$('#user-forked').html('Forked ' + count + ' times');
     }
 
     function UpdateStars(count) {
-	$('#user-starred').html("Starred: "+count);
+	$('#user-starred').html("Starred " + count + ' times');
     }
 
     function UpdateFollows(count) {
-    $('#user-followed').html("Followers: "+count);
+    $('#user-followed').html("Followed by " + count + ' people');
     }
 
     function UpdateAge(secs) {
-	$('#user-age').html("Years: "+Math.ceil(secs/60/60/24/365));
+	$('#user-age').html("On GitHub for " + Math.ceil(secs/60/60/24/365) + ' years');
     }
 
     function UpdateUserGUI(user) {

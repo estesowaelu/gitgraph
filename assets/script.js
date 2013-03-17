@@ -9,7 +9,7 @@ $(document).ready(function() {
     // Function Definitions
     function CreateCodeFlower(json) {
 	if(currentCodeFlower) currentCodeFlower.cleanup();
-	currentCodeFlower = new CodeFlower("#flower-img", 300, 570, UpdateUserGUI).update(json);
+	currentCodeFlower = new CodeFlower("#flower-img", 450, 570, UpdateUserGUI).update(json);
     };
 
     function CreatePie(selector, json, dim) {
@@ -128,7 +128,15 @@ $(document).ready(function() {
     }
 
     function ShowGraphMatter(name) {
-	$('#graph-matter').show()
+	$('#graph-matter').show();
+    }
+
+    function HideTopTag() {
+	$("#top-matter p").slideUp();
+    }
+
+    function ShowTopTag() {
+	$("#top-matter p").slideDown();
     }
 
     function UpdateUserGUI(user) {
@@ -142,6 +150,7 @@ $(document).ready(function() {
 		    ShowFormMatter();
 		    ShowErrorMessage("Hey. That user doesn't exist. Hit escape and try again.");
 		} else {
+		    HideTopTag();
 		    console.log(data);
 		    ShowGraphMatter();
 		    UpdateUserName(data['login']);

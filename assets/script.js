@@ -87,8 +87,10 @@ $(document).ready(function() {
 		    var username = $(this).val();
 		    UpdateUserGUI(username);
 		}
-		else if(e.which == 27) { //escape key
-			location.reload();
-		}
     });
+    $(document).keydown(function(e) {
+		if(e.which == 27) { //escape key
+			location.reload();
+		}    	
+    })
 });
